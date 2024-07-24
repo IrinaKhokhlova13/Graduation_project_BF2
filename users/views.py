@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterFrom
@@ -20,11 +20,12 @@ CHARS = '+-*!&$#?=@abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
 class UserLogin(LoginView):
     """Контроллер авторизации"""
     template_name = 'user_login.html'
+    success_url = reverse_lazy('diagnostic_center:home')
 
 
 class UserLogout(LogoutView):
     """Контроллер выхода"""
-    pass
+    success_url = reverse_lazy('diagnostic_center:home')
 
 
 
