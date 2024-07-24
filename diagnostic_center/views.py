@@ -1,4 +1,10 @@
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.forms import inlineformset_factory
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
+from diagnostic_center.forms import DoctorForm, AppointmentAddForm
+from diagnostic_center.models import Doctor, Appointment, Service
+from users.models import User
+
 
 class BaseTemplateView(TemplateView):
     template_name = "diagnostic_center/base.html"
@@ -9,8 +15,52 @@ class HomeTemplateView(TemplateView):
 class AboutTheClinicTemplateView(TemplateView):
     template_name = "diagnostic_center/about_the_clinic.html"
 
-class ServicesTemplateView(TemplateView):
-    template_name = "diagnostic_center/services.html"
-
 class ContactsTemplateView(TemplateView):
     template_name = "diagnostic_center/contacts.html"
+
+
+class DoctorListView(ListView):
+    model = Doctor
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        doctors = Doctor.objects.all()
+        context_data['object_list'] = doctors
+        return context_data
+
+
+class ServiceListView(ListView):
+    model = Service
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        services = Service.objects.all()
+        context_data['object_list'] = services
+        return context_data
+
+
+class AppointmentCreateView(CreateView):
+    model = Appointment
+    template_name = 'diagnostic_center/appointment_from.html'
+    form_class = AppointmentAddForm
+    success_url = reverse_lazy('diagnostic_center:home')
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        appointment_form_set = inlineformset_factory(User, Appointment, form=AppointmentAddForm, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = appointment_form_set(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = appointment_form_set(instance=self.object)
+        return context_data
+
+
+
+class AppointmentListView(ListView):
+    model = Appointment
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        appointments = Appointment.objects.all()
+        context_data['object_list'] = appointments
+        return context_data
