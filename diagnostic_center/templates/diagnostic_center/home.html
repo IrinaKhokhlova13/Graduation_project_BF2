@@ -52,20 +52,33 @@
         </div>
     </div>
     <hr class="featurette-divider">
+<div class="carousel slide mb-6" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
     <div class="row">
-        <div class="col-lg-4 text-start">
-            <h1 class="fw-normal"><a>Наши врачи</a></h1>
+        <div class="col-lg-4">
+            <img width="300" height="300" src="{% static 'base_photo/Frame 15.png' %}" class="rounded" alt="...">
+            <h2 class="fw-normal">Наши специалисты</h2>
+            <p><a class="btn btn-lg btn-primary" href="{% url 'diagnostic_center:doctor_list' %}">Посмотреть</a></p>
         </div>
-        <div class="col-lg-4 text-end">
+        <div class="col-lg-4">
+            <img width="300" height="300" src="{% static 'base_photo/Frame 16.png' %}" class="rounded" alt="...">
+            <h2 class="fw-normal">Анализы/УЗИ/ЭКГ</h2>
+            <p><a class="btn btn-lg btn-primary" href="{% url 'diagnostic_center:service_list' %}">Прайс</a></p>
         </div>
-        <div class="col-lg-4 text-end">
-            <h3 class="fw-normal"><a href="{% url 'diagnostic_center:doctor_list' %}">Все специалисты</a></h3>
+        <div class="col-lg-4">
+            <img width="300" height="300" src="{% static 'base_photo/Frame 17.png' %}" class="rounded" alt="...">
+            <h2 class="fw-normal">Все записи на приём</h2>
+            <p><a class="btn btn-lg btn-primary" href="{% url 'diagnostic_center:appointment_list' %}">Посмотреть</a></p>
         </div>
     </div>
+</div>
     <hr>
     <br>
-
-    <hr class="featurette-divider">
 
 </div>
 {% endblock %}
