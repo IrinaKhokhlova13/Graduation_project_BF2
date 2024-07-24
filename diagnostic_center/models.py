@@ -25,8 +25,7 @@ class Doctor(models.Model):
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     photo = models.ImageField(upload_to='person/', verbose_name='фото', **NULLABLE)
-    direction = (models.ManyToManyField('Direction', verbose_name='направление',
-                                        related_name='direction'))
+    direction = models.ForeignKey(Direction, on_delete=models.CASCADE, verbose_name='направление', **NULLABLE)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -36,10 +35,11 @@ class Doctor(models.Model):
         verbose_name_plural = 'врачи'
 
 
+
 class Service(models.Model):
     """Модель услуги"""
     name_service = models.CharField(max_length=250, verbose_name='наименование')
-    description = models.TextField(verbose_name='описание')
+    description = models.CharField(verbose_name='артикул', **NULLABLE)
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE, verbose_name='направление')
     price = models.IntegerField(verbose_name='стоимость')
 
