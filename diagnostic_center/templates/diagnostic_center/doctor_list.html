@@ -1,0 +1,26 @@
+{% extends 'diagnostic_center/home.html' %}
+{% load my_tags %}
+{% block content %}
+{% csrf_token %}
+<hr class="featurette-divider">
+<div class="container text-center col-12">
+    {% csrf_token %}
+    <div class="row text-center col-12">
+        {% for doctor in object_list %}
+        <div class="col-4">
+            <div class="container text-center">
+                <img width="300" height="300" src="{{ doctor.photo | media_filter }}">
+                <br>
+                <br>
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ doctor.first_name }} {{ doctor.last_name }}</h4>
+                </div>
+                <div class="card-header">
+                    <h5 class="my-0 font-weight-normal">{{ doctor.direction }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

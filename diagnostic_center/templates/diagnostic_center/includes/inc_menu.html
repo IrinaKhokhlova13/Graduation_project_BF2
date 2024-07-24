@@ -11,19 +11,32 @@
                     <a class="nav-link" aria-current="page" href="{% url 'diagnostic_center:home' %}">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'diagnostic_center:about_the_clinic' %}">О клинике</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'diagnostic_center:about_the_clinic' %}">О
+                        клинике</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'diagnostic_center:services' %}">Услуги</a>
+                    <a class="nav-link" href="{% url 'diagnostic_center:service_list' %}">Услуги</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'diagnostic_center:contacts' %}">Контакты</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <button class="btn btn-outline-success" type="submit">Регистрация</button>
-                <button class="btn btn-outline-success" type="submit">Вход</button>
-            </form>
         </div>
+        <div class="containerflex-end">
+                <div class="row">
+                    <div class="col">
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-outline-success p-3 " href="{% url 'users:logout' %}"
+                           role="button" type="submit">Выйти</a>
+                        {% else %}
+                        <a class="btn btn-outline-success p-3" href="{% url 'users:login' %}"
+                           role="button" type="submit">Вход</a>
+                        <a class="btn btn-outline-success p-3" href="{% url 'users:register' %}"
+                           role="button"
+                           type="submit">Регистрация</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
     </div>
 </nav>

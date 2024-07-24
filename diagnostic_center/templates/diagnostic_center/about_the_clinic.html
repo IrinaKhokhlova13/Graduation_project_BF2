@@ -1,4 +1,5 @@
 {% extends 'diagnostic_center/base.html' %}
+{% load static %}
 {% block content %}
 <div class="container marketing">
     <hr class="featurette-divider">
@@ -25,7 +26,7 @@
 
         </div>
         <div class="col-md-5">
-            <img src="media" class="img-thumbnail" alt="...">
+            <img src="{% static 'base_photo/врачи.png' %}" class="img-fluid" alt="...">
         </div>
     </div>
 

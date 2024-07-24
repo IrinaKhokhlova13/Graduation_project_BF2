@@ -1,0 +1,137 @@
+{% extends 'diagnostic_center/home.html' %}
+{% load static %}
+{% load my_tags %}
+{% block content %}
+<br>
+<div class="container">
+        <div class="text-center">
+            <h1 class="fw-normal">ПРАЙС УСЛУГ</h1>
+            <br>
+        </div>
+</div>
+<hr class="featurette-divider">
+<div class="container marketing">
+    <div class="row">
+        <div class="col-lg-4">
+            <img width="300" height="300" src="{% static 'base_photo/анализы.png' %}" class="rounded" alt="...">
+            <h2 class="fw-normal">АНАЛИЗЫ</h2>
+            <p>Быстрое получение результатов анализов крови, мочи, кала и других, с
+                расшифровкой.
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <img width="300" height="300" src="{% static 'base_photo/узи.png' %}" class="rounded" alt="...">
+            <h2 class="fw-normal">УЗИ</h2>
+            <p>Хорошее УЗИ на современном оборудовании - залог точной постановки диагноза.
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <img width="300" height="300" src="{% static 'base_photo/экг.png' %}" class="rounded" alt="...">
+            <h2 class="fw-normal">ЭКГ</h2>
+            <p>Позволяет проверить работу вашего сердца.
+            </p>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="container col-6">
+    </div>
+    <div class="container col-6">
+        <div class="container text-center">
+            <div class="d-grid gap-5 col-6 mx-auto">
+                <button class="btn btn-primary" type="button"><a class="btn btn btn-primary"
+                                                                 href="{% url 'diagnostic_center:create_appointment' %}"
+                                                                 role="button"
+                                                                 type="submit">Записаться</a></button>
+            </div>
+        </div>
+    </div>
+    <div class="container col-12">
+    </div>
+    {% endif %}
+
+</div>
+
+<hr class="featurette-divider">
+<div class="container text-start col-12">
+    <div class="row text-start col-12">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Артикул</th>
+                <th scope="col">Цена</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for service in object_list %}
+            {% if service.direction_id == 3 %}
+            <tr>
+                <td>{{ service.name_service }}</td>
+                <td>{{ service.description}}</td>
+                <td>{{ service.price }} руб.</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<br>
+<br>
+<div class="container text-start col-12">
+    <div class="row text-start col-12">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Артикул</th>
+                <th scope="col">Цена</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for service in object_list %}
+            {% if service.direction_id == 1 %}
+            <tr>
+                <td>{{ service.name_service }}</td>
+                <td>{{ service.description}}</td>
+                <td>{{ service.price }} руб.</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<br>
+<br>
+<div class="container text-start col-12">
+    <div class="row text-start col-12">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Артикул</th>
+                <th scope="col">Цена</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for service in object_list %}
+            {% if service.direction_id == 4 %}
+            <tr>
+                <td>{{ service.name_service }}</td>
+                <td>{{ service.description }}</td>
+                <td>{{ service.price }} руб.</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+{% endblock %}
