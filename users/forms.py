@@ -9,16 +9,14 @@ class StyleMixin:
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             if isinstance(field, BooleanField):
-                field.widget.attrs['class'] = 'form-check-input'
+                field.widget.attrs["class"] = "form-check-input"
             else:
-                field.widget.attrs['class'] = 'form-control'
-
-
+                field.widget.attrs["class"] = "form-control"
 
 
 class UserRegisterFrom(StyleMixin, UserCreationForm):
     """Форма регистрации пользователя"""
+
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2')
-
+        fields = ("email", "password1", "password2")

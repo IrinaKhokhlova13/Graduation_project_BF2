@@ -14,27 +14,29 @@ from users.forms import UserRegisterFrom
 from users.models import User
 
 
-CHARS = '+-*!&$#?=@abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+CHARS = "+-*!&$#?=@abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
 
 class UserLogin(LoginView):
     """Контроллер авторизации"""
-    template_name = 'user_login.html'
-    success_url = reverse_lazy('diagnostic_center:home')
+
+    template_name = "user_login.html"
+    success_url = reverse_lazy("diagnostic_center:home")
 
 
 class UserLogout(LogoutView):
     """Контроллер выхода"""
-    success_url = reverse_lazy('diagnostic_center:home')
 
+    success_url = reverse_lazy("diagnostic_center:home")
 
 
 class RegisterView(CreateView):
     """Контроллер регистрации пользователя"""
+
     model = User
     form_class = UserRegisterFrom
-    template_name = 'user_register.html'
-    success_url = reverse_lazy('users:login')
+    template_name = "user_register.html"
+    success_url = reverse_lazy("users:login")
 
     def form_valid(self, form):
         """Отправляет письмо на почту пользователю для подтверждения email"""
@@ -44,10 +46,10 @@ class RegisterView(CreateView):
         user.token = token
         user.save()
         host = self.request.get_host()
-        url = f'http://{host}/users/email-confirm/{token}'
+        url = f"http://{host}/users/email-confirm/{token}"
         send_mail(
-            subject='Подтверждение почты',
-            message=f'Привет, перейди по ссылке для подтверждения почты {url}',
+            subject="Подтверждение почты",
+            message=f"Привет, перейди по ссылке для подтверждения почты {url}",
             from_email=EMAIL_HOST_USER,
             recipient_list=[user.email],
         )
@@ -55,33 +57,31 @@ class RegisterView(CreateView):
 
 
 def email_verification(request, token):
-    """ Верифицирует пользователя"""
+    """Верифицирует пользователя"""
     user = get_object_or_404(User, token=token)
     if user:
         user.is_active = True
         user.save()
         return redirect(reverse("users:login"))
     else:
-        return redirect(reverse('users:register'))
-
+        return redirect(reverse("users:register"))
 
 
 def res_password(request):
-    """ Генерирует новый пароль для пользователя и отправляет ему на почту"""
-    new_password = ''
-    if request.method == 'POST':
-        email = request.POST['email']
+    """Генерирует новый пароль для пользователя и отправляет ему на почту"""
+    new_password = ""
+    if request.method == "POST":
+        email = request.POST["email"]
         user = get_object_or_404(User, email=email)
         for i in range(10):
             new_password += random.choice(CHARS)
         send_mail(
-            subject='Смена пароля',
-            message=f'Ваш новый пароль {new_password}',
+            subject="Смена пароля",
+            message=f"Ваш новый пароль {new_password}",
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email]
+            recipient_list=[user.email],
         )
         user.set_password(new_password)
         user.save()
-        return redirect(reverse('users:login'))
-    return render(request, 'reset_password.html')
-
+        return redirect(reverse("users:login"))
+    return render(request, "reset_password.html")
