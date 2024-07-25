@@ -9,6 +9,7 @@
         {% for doctor in object_list %}
         {% if doctor.first_name != None and doctor.last_name != None and doctor.photo %}
         <div class="col-4">
+            <br>
             <div class="container text-center">
                 <img width="300" height="300" src="{{ doctor.photo | media_filter }}">
                 <br>
@@ -20,6 +21,7 @@
                     <h5 class="my-0 font-weight-normal">{{ doctor.direction }}</h5>
                 </div>
             </div>
+            <br>
         </div>
         {% endif %}
         {% endfor %}

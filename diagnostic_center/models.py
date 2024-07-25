@@ -67,7 +67,6 @@ class Appointment(models.Model):
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)
-
         now = timezone.now()
         if self.date < now:
-            raise ValidationError('Не допускается создавать записи в прошедшем времени')
+            raise ValidationError('Нельзя создать запись в прошедшем времени')
