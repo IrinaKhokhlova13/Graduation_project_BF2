@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView,
     UpdateView,
 )
-from diagnostic_center.forms import DoctorForm, AppointmentAddForm
+from diagnostic_center.forms import AppointmentAddForm
 from diagnostic_center.models import Doctor, Appointment, Service
 from users.models import User
 

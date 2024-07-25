@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import BooleanField
 from users.models import User

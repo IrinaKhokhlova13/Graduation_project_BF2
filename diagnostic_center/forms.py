@@ -1,4 +1,5 @@
-from django.forms import ModelForm, forms
+from django.forms import ModelForm
+
 from diagnostic_center.models import Doctor, Appointment
 
 
